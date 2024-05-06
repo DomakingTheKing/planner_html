@@ -129,7 +129,7 @@ body {
   max-height: 24px;
 }
 
-#delete button:hover {
+.deleteButton button:hover {
   background-color: red;
 }
 
