@@ -1,5 +1,3 @@
-let i = 0;
-
 // Funzione per gestire l'aggiunta di una nuova attività
 function addActivity() {
   // Chiedi all'utente i valori per priorità, nome e descrizione
@@ -29,11 +27,11 @@ function addActivity() {
     // Crea una nuova riga per la tabella
     const newRow = document.createElement('tr');
     newRow.innerHTML = `
-      <td id="priority${i}"><img src="img/${priorityIcon}" alt="${priority}"></td>
-      <td id="name${i}">${name}</td>
-      <td id="description${i}">${description}</td>
-      <td id="modify${i}"><button class="optionsButton" onclick="modifyActivity()"><img src="img/more.svg" alt="Options"></button></td>
-      <td id="delete${i}"><button class="deleteButton" onclick="deleteActivity(this)"><img src="img/delete.svg" alt="Delete"></button></td>
+      <td class="priority"><button onclick="setActivityPriority(this)"><img src="img/${priorityIcon}" alt="${priority}"></button></td>
+      <td>${name}</td>
+      <td>${description}</td>
+      <td><button class="optionsButton" onclick="modifyActivity()"><img src="img/more.svg" alt="Options"></button></td>
+      <td><button class="deleteButton" onclick="deleteActivity(this)"><img src="img/delete.svg" alt="Delete"></button></td>
     `;
 
     // Aggiunge la nuova riga alla tabella
@@ -41,5 +39,12 @@ function addActivity() {
     tableBody.appendChild(newRow);
   } else {
     alert("Devi inserire tutti i valori!");
+  }
+}
+
+function deleteActivity(button) {
+  const tableRow = button.closest("tr");
+  if (tableRow) {
+    tableRow.remove();
   }
 }
