@@ -102,7 +102,7 @@ body {
   position: fixed;
   bottom: 20px; /* Distanza dal fondo dello schermo */
   right: 20px; /* Distanza dalla destra dello schermo */
-  z-index: 9999; /* Assicura che il pulsante sia sopra gli altri contenuti */
+  z-index: 10; /* Assicura che il pulsante sia sopra gli altri contenuti */
 }
 
 #addActivity:hover {
@@ -152,6 +152,64 @@ body {
   cursor: pointer;
 }
 
+/* ----------PRIORITY MENU NEW---------- */
+
+.priorityMenuNew {
+  background-color: #2a2a2a;
+  width: 600px;
+  height: 600px;
+  border-radius: 10%;
+  position: fixed; /* Per posizionare il div sopra gli altri elementi */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Per centrare il div */
+  box-shadow: 10px 15px 1000px rgba(0, 0, 0, 0.45);
+  z-index: 4;
+}
+
+.priorityMenuNew label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.priorityMenuNew input[type="text"],
+.priorityMenuNew select {
+  width: 50%;
+  padding: 8px;
+  margin-top: 100px;
+  border: 1px solid #cccccc;
+  border-radius: 20px;
+  background-color: #ffffff;
+  font-size: 16px;
+  color: #333333;
+}
+
+.priorityMenuNew select {
+  cursor: pointer;
+}
+
+.priorityMenuNew button {
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.priorityMenuNew button.cancelButton {
+  background-color: #f44336;
+}
+
+.priorityMenuNew button:hover {
+  opacity: 0.8;
+}
+
+/* ------------------------------------ */
 
 ::-moz-selection {
   background: #6e829a;
@@ -162,6 +220,7 @@ body {
   background: #6e829a;
   text-shadow: none;
 }
+
 
 /*
  * A better looking default horizontal rule

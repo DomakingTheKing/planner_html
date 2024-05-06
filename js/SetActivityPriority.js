@@ -24,7 +24,7 @@ function setActivityPriority(button) {
   priorityMenu.style.top = cell.offsetTop + 'px';
   priorityMenu.style.left = cell.offsetLeft + 'px';
   priorityMenu.style.position = 'absolute';
-  priorityMenu.style.zIndex = '9999';
+  priorityMenu.style.zIndex = '3';
 
   // Crea i pulsanti all'interno del menù
   const priorityOptions = ['Low', 'Medium', 'High'];
