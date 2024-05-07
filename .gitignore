@@ -32,13 +32,8 @@ typings
 # User-specific stuff:
 .idea/
 
-# Mongo Explorer plugin:
-.idea/mongoSettings.xml
-
 ## File-based project format:
 *.iws
-
-## Plugin-specific files:
 
 # IntelliJ
 /out/
@@ -171,3 +166,4 @@ build
 .DS_Store
 .env
 npm-debug.log
+.editorconfig
