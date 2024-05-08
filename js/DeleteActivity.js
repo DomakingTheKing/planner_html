@@ -1,6 +1,6 @@
 function deleteActivity(button) {
-  const tableRow = button.closest("tr");
-  if (tableRow) {
-    tableRow.remove();
+  const activity = button.closest("div");
+  if (activity) {
+    activity.remove();
   }
 }

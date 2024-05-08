@@ -1,50 +1,76 @@
 // Funzione per gestire l'aggiunta di una nuova attività
 function addActivity() {
   // Chiedi all'utente i valori per priorità, nome e descrizione
-  const priority = prompt("Inserisci la priorità (low, medium, high):");
-  const name = prompt("Inserisci il nome dell'attività:");
-  const description = prompt("Inserisci la descrizione dell'attività:");
+
+  const newActivityMenu = document.createElement('tr');
+  newActivityMenu.innerHTML = `
+  <div class="priorityMenu">
+    <div class="labelContainer">
+      <label>
+        <input type="text" placeholder="Nome">
+      </label>
+      <label>
+        <textarea placeholder="Descrizione" rows="3" class="limitedTextarea"></textarea>
+      </label>
+      <label>
+        <select>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+    </div>
+    <div class="buttonContainer">
+      <button class="confirmButton">Conferma</button>
+      <button class="cancelButton">Annulla</button>
+    </div>
+  </div>  
+  `;
+
+  // Aggiunge la nuova riga alla tabella
+  const body = document.querySelector('body');
+  body.appendChild(newActivityMenu);
+  
 
   // Controlla se l'utente ha inserito dei valori
   if (priority && name && description) {
     // Converte la priorità in un'icona corrispondente
-    let priorityIcon = '';
+    let priorityColor = '';
     switch (priority) {
       case 'low':
-        priorityIcon = 'circle_green.svg';
+        priorityColor = 'green';
         break;
       case 'medium':
-        priorityIcon = 'circle_yellow.svg';
+        priorityColor = 'yellow';
         break;
       case 'high':
-        priorityIcon = 'circle_red.svg';
+        priorityColor = 'red';
         break;
       default:
-        priorityIcon = 'circle.svg';
+        priorityColor = 'black';
         break;
     }
 
     // Crea una nuova riga per la tabella
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-      <td class="priority"><button onclick="setActivityPriority(this)"><img src="img/${priorityIcon}" alt="${priority}"></button></td>
-      <td>${name}</td>
-      <td>${description}</td>
-      <td><button class="optionsButton" onclick="modifyActivity()"><img src="img/more.svg" alt="Options"></button></td>
-      <td><button class="deleteButton" onclick="deleteActivity(this)"><img src="img/delete.svg" alt="Delete"></button></td>
+    const newActivity = document.createElement('tr');
+    newActivity.innerHTML = `
+    <div class="activity">
+        <svg>
+          <circle r="13" cx="25" cy="32" fill=${priorityIcon} />
+        </svg>
+        <p class="activity-name" id="activity-name">${name}</p>
+        <p class="activity-description" id="activity-description">${description}</p>
+        <!-- Max 39char e 3 righe per la descrizione, Max30 char e 1 riga per il nome  -->
+        <button class="delete-button" onclick="deleteActivity(this)">
+          <img src="/img/delete.svg" alt="Delete">
+        </button>
+    </div>
     `;
 
     // Aggiunge la nuova riga alla tabella
-    const tableBody = document.querySelector('#activity table tbody');
-    tableBody.appendChild(newRow);
+    const activitiesContainer = document.querySelector('#activities');
+    activitiesContainer.appendChild(newActivity);
   } else {
     alert("Devi inserire tutti i valori!");
-  }
-}
-
-function deleteActivity(button) {
-  const tableRow = button.closest("tr");
-  if (tableRow) {
-    tableRow.remove();
   }
 }
