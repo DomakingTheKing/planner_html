@@ -29,6 +29,12 @@
 </div>
 
 <div id="activities">
+  <div class="activity">
+    <svg height="10" width="10">
+      <circle r="5" cx="5" cy="5" fill="red" />
+    </svg>
+  </div>
+  <div class="activity"></div>
   <div class="activity"></div>
 </div>
 
@@ -36,6 +42,13 @@
 
 <button id="addActivity" onclick="addActivity()"><img src="img/add.svg" alt="Add activity"></button>
 
+<form action="/php/createUser.php" method="POST">
+  <input type="text" name="username" placeholder="Username">
+  <input type="password" name="password" placeholder="Password">
+  <input type="hidden" name="id" value=1>
+  <input type="submit" value="Login">
+
+</form>
 
 
 
