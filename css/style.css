@@ -30,6 +30,11 @@ body {
   font-size: 30px;
   text-shadow: #ffcc00 1px 0 75px;
   margin: auto auto 32px;
+  transition: 0.3s ease;
+}
+
+.title:hover {
+  transform: scale(150%);
 }
 
 /* ----------TABELLA ATTIVITA'---------- */
