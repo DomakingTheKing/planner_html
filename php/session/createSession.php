@@ -5,6 +5,8 @@ ini_set('display_errors', 1);
 require_once('../database.php');
 
 
+session_start();
+
 function hash_string($int, $time){
     $hashed = hash('sha256', "-$int-$time-");
     return substr($hashed, 0, 100);
@@ -28,12 +30,10 @@ function create($id){
 }
 
 
-if(isset($_POST['id'])){
+if(isset($_SESSION['id'])){
 
-    $cook = create($_POST['id']);
-
+    $cook = create($_SESSION['id']);
     setcookie("session",  $cook, time() + (99*24*3600), "/");
-
 }
 
 

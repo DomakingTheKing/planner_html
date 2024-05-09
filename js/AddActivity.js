@@ -36,6 +36,9 @@ function addActivity() {
 }
 
 function storeActivityData() {
+
+    
+
   // Ottieni i valori inseriti dall'utente
   const name = document.getElementById('activityNameInput').value;
   const description = document.getElementById('activityDescriptionInput').value;
