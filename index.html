@@ -1,58 +1,60 @@
-<!doctype html>
-<html class="no-js" lang="it">
+<!DOCTYPE html>
+<html lang="it">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Planner</title>
-  <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="">
-
-  <meta property="og:title" content="Planner">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="">
-
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
-
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#fafafa">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
+<div class="container">
+  <div class="header">
+    <h1 style="font-size: 60px">Planner</h1>
+    <input type="date" id="datepicker">
+    <button id="addActivity"><img src="img/add.svg" alt="Add activity"></button>
 
-<div class="title">
-  <h1>Planner</h1>
+    <!-- Migliorare switch per dark mode -->
+    <label class="theme-switch" for="themeSwitch">
+      <input type="checkbox" id="themeSwitch">
+    </label>
+  </div>
+
+  <div class="timeline">
+    <div class="hours">
+      <div class="current-hour-text"></div>
+    </div>
+    <div class="activities">
+      <!-- Attività saranno generate qui -->
+    </div>
+    <div class="current-hour-line"></div>
+  </div>
 </div>
 
-<div id="activities">
+<div id="overlay"></div>
+
+<div id="activityModal" class="modal">
+  <div class="modal-content">
+    <form id="activityForm">
+      <label for="activityName">Nome Attività:</label>
+      <input type="text" id="activityName" name="activityName" required>
+      <label for="activityStartTime">Ora di Inizio:</label>
+      <input type="time" id="activityStartTime" name="activityStartTime" required>
+      <label for="activityEndTime">Ora di Fine:</label>
+      <input type="time" id="activityEndTime" name="activityEndTime">
+      <label for="activityColor">Scegli il colore dell'attività:</label>
+      <input type="color" id="activityColor" name="activityColor">
+      <div class="button-container">
+        <input type="submit" value="Aggiungi">
+        <button type="button" id="cancelBtn">Annulla</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 
-
-<button id="addActivity" onclick="addActivity()"><img src="img/add.svg" alt="Add activity"></button>
-
-<form action="/php/createUser.php" method="POST">
-  <input type="text" name="username" placeholder="Username">
-  <input type="password" name="password" placeholder="Password">
-  <input type="hidden" name="id" value=1>
-  <input type="submit" value="Login">
-
-</form>
-
-
-
-
-
-<!-- SCRIPT -->
-<script src="js/AddActivity.js"></script>
-<script src="js/DeleteActivity.js"></script>
-<script src="js/ModifyActivity.js"></script>
-<script src="js/SetActivityPriority.js"></script>
-
+<script src="/js/script.js"></script>
 </body>
 
 </html>
