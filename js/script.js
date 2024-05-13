@@ -50,89 +50,91 @@ document.addEventListener("DOMContentLoaded", function() {
         this.reset();
     });
 
-    // Funzione per verificare e posizionare correttamente un'attività in caso di sovrapposizione
-    function checkAndPlaceActivity(activity) {
-        const existingActivities = activitiesColumn.querySelectorAll('.activity');
-        const activityRect = activity.getBoundingClientRect();
-        const overlappingActivities = Array.from(existingActivities).filter(existingActivity => {
-            const existingActivityRect = existingActivity.getBoundingClientRect();
-            return !(existingActivityRect.bottom < activityRect.top || existingActivityRect.top > activityRect.bottom);
-        });
-        if (overlappingActivities.length > 0) {
-            const lastOverlappingActivity = overlappingActivities[overlappingActivities.length - 1];
-            const lastOverlappingActivityRect = lastOverlappingActivity.getBoundingClientRect();
-            const topPosition = lastOverlappingActivityRect.bottom - timeline.getBoundingClientRect().top + 1;
-            activity.style.top = `${topPosition}px`;
-        }
-    }
-
-    // Aggiungi un'attività quando il form viene confermato, controllando eventuali sovrapposizioni
-    function addActivityWithOverlapCheck(name, startTime, endTime, color) {
-        const activity = document.createElement("div");
-        activity.className = "activity";
-        activity.textContent = name;
-        activity.title = `${startTime} - ${endTime}`;
-        activity.classList.add(calculateDurationClass(startTime, endTime));
-        if (activity.classList.contains("long")) {
-            activity.style.backgroundColor = color;
-        }
-        const startHour = parseInt(startTime.split(':')[0]);
-        const startMinute = parseInt(startTime.split(':')[1]);
-        const totalMinutes = startHour * 60 + startMinute;
-        const position = (totalMinutes / 1440) * 100;
-        activity.style.top = `calc(${position}% - 1px)`;
-        const timeDisplay = document.createElement("div");
-        timeDisplay.className = "activity-time";
-        timeDisplay.textContent = `${startTime} - ${endTime || ''}`;
-        activity.appendChild(timeDisplay);
-        activitiesColumn.appendChild(activity);
-        checkAndPlaceActivity(activity); // Controlla e posiziona l'attività in caso di sovrapposizione
-    }
-
-    function calculateDurationClass(startTime, endTime) {
-        return endTime ? "long" : "short";
-    }
-
-    // Funzione per aggiornare la linea dell'ora corrente
-    function updateCurrentHourLine() {
-        const now = new Date();
-        const hours = now.getHours();
-        const minutes = now.getMinutes();
-        const totalMinutes = hours * 60 + minutes;
-        const position = (totalMinutes / 1440) * 100;
-        currentHourLine.style.top = `calc(${position}% - 1px)`;
-    }
-
-    // Funzione per aggiornare la posizione del testo dell'ora corrente
-    function updateCurrentHourTextPosition() {
-        const now = new Date();
-        const hours = now.getHours();
-        const minutes = now.getMinutes();
-        const totalMinutes = hours * 60 + minutes;
-        const position = (totalMinutes / 1440) * 100;
-        currentHourText.style.top = position-1.3 + '%';
-        currentHourText.textContent = getCurrentHourText();
-    }
-
-    // Funzione per ottenere il testo dell'ora corrente nel formato "HH:MM"
-    function getCurrentHourText() {
-        const now = new Date();
-        const hours = now.getHours();
-        const minutes = now.getMinutes();
-        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-    }
-    
     updateCurrentHourLine();
     updateCurrentHourTextPosition();
-
-    // Aggiorna la posizione della linea dell'ora corrente e del testo ogni minuto
-    setInterval(function() {
-        updateCurrentHourTextPosition();
-        updateCurrentHourLine();
-    }, 60000);
     
     // Attiva/disattiva la modalità scura quando lo switch viene modificato
     themeSwitch.addEventListener("change", function() {
         document.body.classList.toggle("dark-mode", this.checked);
     });
 });
+
+
+// Funzione per verificare e posizionare correttamente un'attività in caso di sovrapposizione
+function checkAndPlaceActivity(activity) {
+    const existingActivities = activitiesColumn.querySelectorAll('.activity');
+    const activityRect = activity.getBoundingClientRect();
+    const overlappingActivities = Array.from(existingActivities).filter(existingActivity => {
+        const existingActivityRect = existingActivity.getBoundingClientRect();
+        return !(existingActivityRect.bottom < activityRect.top || existingActivityRect.top > activityRect.bottom);
+    });
+    if (overlappingActivities.length > 0) {
+        const lastOverlappingActivity = overlappingActivities[overlappingActivities.length - 1];
+        const lastOverlappingActivityRect = lastOverlappingActivity.getBoundingClientRect();
+        const topPosition = lastOverlappingActivityRect.bottom - timeline.getBoundingClientRect().top + 1;
+        activity.style.top = `${topPosition}px`;
+    }
+}
+
+// Aggiungi un'attività quando il form viene confermato, controllando eventuali sovrapposizioni
+function addActivityWithOverlapCheck(name, startTime, endTime, color) {
+    const activity = document.createElement("div");
+    activity.className = "activity";
+    activity.textContent = name;
+    activity.title = `${startTime} - ${endTime}`;
+    activity.classList.add(calculateDurationClass(startTime, endTime));
+    if (activity.classList.contains("long")) {
+        activity.style.backgroundColor = color;
+    }
+    const startHour = parseInt(startTime.split(':')[0]);
+    const startMinute = parseInt(startTime.split(':')[1]);
+    const totalMinutes = startHour * 60 + startMinute;
+    const position = (totalMinutes / 1440) * 100;
+    activity.style.top = `calc(${position}% - 1px)`;
+    const timeDisplay = document.createElement("div");
+    timeDisplay.className = "activity-time";
+    timeDisplay.textContent = `${startTime} - ${endTime || ''}`;
+    activity.appendChild(timeDisplay);
+    activitiesColumn.appendChild(activity);
+    checkAndPlaceActivity(activity); // Controlla e posiziona l'attività in caso di sovrapposizione
+}
+
+function calculateDurationClass(startTime, endTime) {
+    return endTime ? "long" : "short";
+}
+
+// Funzione per aggiornare la linea dell'ora corrente
+function updateCurrentHourLine() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const totalMinutes = hours * 60 + minutes;
+    const position = (totalMinutes / 1440) * 100;
+    currentHourLine.style.top = `calc(${position}% - 1px)`;
+}
+
+// Funzione per aggiornare la posizione del testo dell'ora corrente
+function updateCurrentHourTextPosition() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const totalMinutes = hours * 60 + minutes;
+    const position = (totalMinutes / 1440) * 100;
+    currentHourText.style.top = position-1.3 + '%';
+    currentHourText.textContent = getCurrentHourText();
+}
+
+// Funzione per ottenere il testo dell'ora corrente nel formato "HH:MM"
+function getCurrentHourText() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+}
+
+
+// Aggiorna la posizione della linea dell'ora corrente e del testo ogni minuto
+setInterval(function() {
+    updateCurrentHourTextPosition();
+    updateCurrentHourLine();
+}, 60000);

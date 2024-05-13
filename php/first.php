@@ -8,7 +8,7 @@ if(isset($_SESSION['id'])){
         exit();
     }
 }else{
-    //header('Location: /html/login.html'); pagina di login e registrazione
+    //header('Location: /html/register.html'); pagina di login e registrazione
     exit();
 }
 
