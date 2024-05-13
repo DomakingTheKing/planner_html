@@ -1,23 +1,18 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const addActivityBtn = document.getElementById("addActivity");
-    const activityModal = document.getElementById("activityModal");
-    const overlay = document.getElementById("overlay");
-    const cancelBtn = document.getElementById("cancelBtn");
-    const activityForm = document.getElementById("activityForm");
-    const timeline = document.querySelector(".timeline");
-    const hoursColumn = document.querySelector(".hours");
-    const activitiesColumn = document.querySelector(".activities");
-    const datepicker = document.getElementById("datepicker");
-    const themeSwitch = document.getElementById("themeSwitch");
-    const currentHourLine = document.querySelector(".current-hour-line");
-    const currentHourText = document.querySelector(".current-hour-text");
+const addActivityBtn = document.getElementById("addActivity");
+const activityModal = document.getElementById("activityModal");
+const overlay = document.getElementById("overlay");
+const cancelBtn = document.getElementById("cancelBtn");
+const activityForm = document.getElementById("activityForm");
+const timeline = document.querySelector(".timeline");
+const hoursColumn = document.querySelector(".hours");
+const activitiesColumn = document.querySelector(".activities");
+const datepicker = document.getElementById("datepicker");
+const themeSwitch = document.getElementById("themeSwitch");
+const currentHourLine = document.querySelector(".current-hour-line");
+const currentHourText = document.querySelector(".current-hour-text");
 
-    // Funzione per gestire l'apertura e la chiusura del modal delle attività
-    function toggleModal() {
-        overlay.style.display = overlay.style.display === "block" ? "none" : "block";
-        activityModal.style.display = activityModal.style.display === "block" ? "none" : "block";
-    }
 
+function init() {
     addActivityBtn.addEventListener("click", toggleModal);
 
     cancelBtn.addEventListener("click", toggleModal);
@@ -57,8 +52,16 @@ document.addEventListener("DOMContentLoaded", function() {
     themeSwitch.addEventListener("change", function() {
         document.body.classList.toggle("dark-mode", this.checked);
     });
-});
+}
 
+
+// Funzione per gestire l'apertura e la chiusura del modal delle attività
+function toggleModal() {
+    overlay.style.display = overlay.style.display === "block" ? "none" : "block";
+    activityModal.style.display = activityModal.style.display === "block" ? "none" : "block";
+}
+
+    
 
 // Funzione per verificare e posizionare correttamente un'attività in caso di sovrapposizione
 function checkAndPlaceActivity(activity) {
@@ -138,3 +141,4 @@ setInterval(function() {
     updateCurrentHourTextPosition();
     updateCurrentHourLine();
 }, 60000);
+console.log("Script loaded");
