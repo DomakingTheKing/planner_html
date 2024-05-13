@@ -93,6 +93,15 @@ function addActivityWithOverlapCheck(name, startTime, endTime, color) {
     const startMinute = parseInt(startTime.split(':')[1]);
     const totalMinutes = startHour * 60 + startMinute;
     const position = (totalMinutes / 1440) * 100;
+
+    const endHour = parseInt(endTime.split(':')[0]);
+    const endMinute = parseInt(endTime.split(':')[1]);
+    const totEnd = endHour * 60 + endMinute;
+    const durata = totEnd - totalMinutes;
+
+    const height = (durata / 1440) * 100;
+    activity.style.height = `${height}%`;
+
     activity.style.top = `calc(${position}% - 1px)`;
     const timeDisplay = document.createElement("div");
     timeDisplay.className = "activity-time";
