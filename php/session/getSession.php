@@ -25,3 +25,5 @@ if(isset($_COOKIE['session'])){
     }
     echo $_SESSION['id'];
 }
+
+header('Location: /events.html');

@@ -7,20 +7,11 @@ require_once('../database.php');
 
 session_start();
 
-if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email']) && isset($_POST['telegram'])){
+if(isset($_POST['username']) && isset($_POST['password'])){
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $email = $_POST['email'];
-    $telegram = $_POST['telegram'];
 
     $db = getDb();
-
-    $qr = $db->prepare("INSERT INTO user (username, password, email, telegram) VALUES (?, ?, ?, ?)");
-    $qr->bind_param("ssss", $username, $password, $email, $telegram);
-
-    $qr->execute();
-    $qr->close();
-
 
     $qr = $db->prepare("SELECT id FROM user WHERE username = ? AND password = ?");
     $qr->bind_param("ss", $username, $password);
@@ -33,7 +24,6 @@ if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email
         $qr->fetch();
 
         $_SESSION['id'] = $id;
-
 
         $qr->close();
         $db->close();

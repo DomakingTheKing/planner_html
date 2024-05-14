@@ -30,10 +30,36 @@ function create($id){
 }
 
 
-if(isset($_SESSION['id'])){
+function check($id){
+    $db = getDb();
 
-    $cook = create($_SESSION['id']);
-    setcookie("session",  $cook, time() + (99*24*3600), "/");
+    $qr = $db->prepare("SELECT id FROM session WHERE user = ?");
+    $qr->bind_param("s", $id);
+
+    $qr->execute();
+
+    $qr->bind_result($sess);
+    $qr->fetch();
+
+    $qr->close();
+    $db->close();
+
+    if($sess){
+        return $sess;
+    }
+    return null;
+}
+
+if(isset($_SESSION['id'])){
+    $s = check($_SESSION['id']);
+    if($s){
+        setcookie("session",  $s, time() + (99*24*3600), "/");
+    }else{
+        $cook = create($_SESSION['id']);
+        setcookie("session",  $cook, time() + (99*24*3600), "/");
+    }
+    header('Location: /');
+    exit();
 }
 
 

@@ -42,7 +42,7 @@ function init() {
         }
         addActivityWithOverlapCheck(activityName, activityStartTime, activityEndTime, activityColor);
         toggleModal();
-        this.reset();
+        //this.reset();
     });
 
     updateCurrentHourLine();
@@ -67,10 +67,13 @@ function toggleModal() {
 function checkAndPlaceActivity(activity) {
     const existingActivities = activitiesColumn.querySelectorAll('.activity');
     const activityRect = activity.getBoundingClientRect();
+
+    console.log("existingActivities", activityRect);
     const overlappingActivities = Array.from(existingActivities).filter(existingActivity => {
         const existingActivityRect = existingActivity.getBoundingClientRect();
         return !(existingActivityRect.bottom < activityRect.top || existingActivityRect.top > activityRect.bottom);
     });
+    console.log("overlappingActivities", overlappingActivities);
     if (overlappingActivities.length > 0) {
         const lastOverlappingActivity = overlappingActivities[overlappingActivities.length - 1];
         const lastOverlappingActivityRect = lastOverlappingActivity.getBoundingClientRect();
@@ -100,9 +103,10 @@ function addActivityWithOverlapCheck(name, startTime, endTime, color) {
     const durata = totEnd - totalMinutes;
 
     const height = (durata / 1440) * 100;
+
     activity.style.height = `${height}%`;
 
-    activity.style.top = `calc(${position}% - 1px)`;
+    activity.style.top = `calc(${position}% - ${totEnd-totalMinutes}px)`;
     const timeDisplay = document.createElement("div");
     timeDisplay.className = "activity-time";
     timeDisplay.textContent = `${startTime} - ${endTime || ''}`;
@@ -122,6 +126,7 @@ function updateCurrentHourLine() {
     const minutes = now.getMinutes();
     const totalMinutes = hours * 60 + minutes;
     const position = (totalMinutes / 1440) * 100;
+    console.log("bar", position);
     currentHourLine.style.top = `calc(${position}% - 1px)`;
 }
 
@@ -150,4 +155,3 @@ setInterval(function() {
     updateCurrentHourTextPosition();
     updateCurrentHourLine();
 }, 60000);
-console.log("Script loaded");
