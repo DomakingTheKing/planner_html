@@ -16,6 +16,7 @@ body {
     font-family: Helvetica, sans-serif;
     text-align: center;
     width: 500px;
+    user-select: none;
 }
 
 .container {
@@ -52,6 +53,8 @@ body {
     background-color: #F1F1F1;
     transition: ease 0.3s;
     text-align: center;
+    caret-color: transparent;
+    font-weight: bold;
 }
 
 .auth form input::placeholder {
@@ -67,6 +70,7 @@ body {
     width: 130px;
     height: 60px;
     background-color: #92be79;
+    color: white;
     cursor: pointer;
     border-radius: 0.3vmax;
     transition: ease 0.3s;
@@ -76,7 +80,9 @@ body {
 }
 
 #submitBtn:hover {
-    background-color: #b4cba8;
+    color: #92be79;
+    background-color: white;
+    border: 1px solid #92be79;
     scale: 110%;
 }
 
@@ -89,9 +95,31 @@ body {
 .input-group img {
     margin-top: 8px;
     margin-right: 5px;
+    -webkit-user-drag: none;
 }
 
 .account-check {
     text-align: right;
     margin-top: 25px;
+}
+
+@media screen and (max-width: 600px) {
+    .centered-container {
+        height: 70vh;
+    }
+
+    .title {
+        font-size: 80px;
+        width: 400px;
+    }
+
+    .container {
+        width: 400px;
+    }
+
+    #submitBtn {
+        width: 200px;
+        height: 50px;
+        font-size: 15px;
+    }
 }

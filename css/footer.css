@@ -33,3 +33,15 @@
 .footer-more {
     margin-left: 100px;
 }
+
+@media screen and (max-width: 800px) {
+    .footer {
+        width: 86%;
+    }
+
+    .footer-content, .footer-more {
+        display: block;
+        margin: 0;
+    }
+}
+

@@ -1305,3 +1305,4 @@
 82.192.130.126 - - [14/May/2024:21:37:16 +0200] "GET / HTTP/1.1" 302 339 "http://planner.bossis.it/login.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 OPR/109.0.0.0"
 82.192.130.126 - - [14/May/2024:21:37:16 +0200] "GET /events.html HTTP/1.1" 200 1065 "http://planner.bossis.it/login.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 OPR/109.0.0.0"
 82.192.130.126 - - [14/May/2024:21:37:33 +0200] "GET / HTTP/1.1" 302 340 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 OPR/109.0.0.0"
+82.192.130.126 - - [14/May/2024:22:07:43 +0200] "GET / HTTP/1.1" 302 340 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 OPR/109.0.0.0"
