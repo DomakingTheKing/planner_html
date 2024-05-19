@@ -5,7 +5,7 @@ const cancelBtn = document.getElementById("cancelBtn");
 const activityForm = document.getElementById("activityForm");
 const timeline = document.querySelector(".timeline");
 const hoursColumn = document.querySelector(".hours");
-const activitiesColumn = document.querySelector(".events");
+const activitiesColumn = document.getElementById("attList");
 const datepicker = document.getElementById("datepicker");
 const themeSwitch = document.getElementById("themeSwitch");
 const currentHourLine = document.querySelector(".current-hour-line");
@@ -13,6 +13,7 @@ const currentHourText = document.querySelector(".current-hour-text");
 
 
 function init() {
+    loadEvent();
     addActivityBtn.addEventListener("click", toggleModal);
 
     cancelBtn.addEventListener("click", toggleModal);
@@ -23,7 +24,7 @@ function init() {
         }
     });
 
-    activityForm.addEventListener("submit", function(event) {
+    /*activityForm.addEventListener("submit", function(event) {
         event.preventDefault();
         const activityName = this.activityName.value;
         const activityStartTime = this.activityStartTime.value;
@@ -43,7 +44,7 @@ function init() {
         addActivityWithOverlapCheck(activityName, activityStartTime, activityEndTime, activityColor);
         toggleModal();
         //this.reset();
-    });
+    });*/
 
     updateCurrentHourLine();
     updateCurrentHourTextPosition();
@@ -149,6 +150,82 @@ function getCurrentHourText() {
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 }
 
+
+
+function loadEvent() {
+    fetch('http://planner.bossis.it/php/event/getEvent.php')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        const sortData = data.sort((a, b) => {
+            const da = new Date(a.start).getTime();
+            const db = new Date(b.start).getTime();
+            return da - db;
+        });
+        console.log(sortData);
+
+        const events = sortData.map(event => (
+            {"div": newActivity(event.name, event.start.split(" ")[1], event.end.split(" ")[1], event.color),
+             "event": event}
+            ));
+        console.log(events);
+        
+        activitiesColumn.appendChild(events[0]['div']);
+        for (let i = 1; i < events.length; i++) {
+            
+            const start = new Date(events[i]['event'].start).getTime();
+            const start1 = new Date(events[i-1]['event'].start).getTime();
+            const end1 = new Date(events[i-1]['event'].end).getTime();
+
+
+            console.log(start1, start, end1);
+
+            if(start > start1 && start < end1){
+                console.log("enter", i);
+                const left  = events[i-1]['div'].style.left;
+                const px = parseInt(left.substring(0, left.length - 2), 10);
+                events[i]['div'].style.left = `${px+155}px`;
+                console.log(events[i]['div'].style.left);
+            }
+            activitiesColumn.appendChild(events[i]['div']);
+        }
+        
+    });
+}
+
+
+function newActivity(name, startTime, endTime, color) {
+    const activity = document.createElement("div");
+    activity.className = "activity";
+    activity.textContent = name;
+    activity.title = `${startTime} - ${endTime}`;
+    activity.classList.add(calculateDurationClass(startTime, endTime));
+    if (activity.classList.contains("long")) {
+        activity.style.backgroundColor = color;
+    }
+    const startHour = parseInt(startTime.split(':')[0]);
+    const startMinute = parseInt(startTime.split(':')[1]);
+    const totalMinutes = startHour * 60 + startMinute;
+    const position = (totalMinutes / 1440) * 100;
+
+    const endHour = parseInt(endTime.split(':')[0]);
+    const endMinute = parseInt(endTime.split(':')[1]);
+    const totEnd = endHour * 60 + endMinute;
+    const durata = totEnd - totalMinutes;
+
+    const height = (durata / 1440) * 100;
+
+    activity.style.height = `${height}%`;
+    activity.style.left = `0px`;
+    activity.style.top = `calc(${position}% - ${totEnd-totalMinutes}px)`;
+    const timeDisplay = document.createElement("div");
+    timeDisplay.className = "activity-time";
+    timeDisplay.textContent = `${startTime} - ${endTime || ''}`;
+    activity.appendChild(timeDisplay);
+
+    return activity;
+}
 
 // Aggiorna la posizione della linea dell'ora corrente e del testo ogni minuto
 setInterval(function() {

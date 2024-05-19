@@ -7,26 +7,23 @@ session_start();
 if(isset($_SESSION['id'])){
     $db = getDb();
 
-    $qr = $db->prepare("SELECT E.id, E.title, E.description, E.priority, E.creation, E.expiry, E.calendar_id
-     FROM calendar as C, event as E 
-     WHERE C.id = E.calendar_id AND C.id = ?");
+    $qr = $db->prepare("SELECT id, title, start, end, color, calendar_id FROM event WHERE user = ?");
 
     $qr->bind_param("i", $_SESSION['id']);
 
     $qr->execute();
 
-    $qr->bind_result($id, $title, $description, $priority, $creation, $expire, $calendar_id);
+    $qr->bind_result($id, $title, $start, $end, $color, $calendar_id);
 
-    $calendars = array();
+    $events = array();
 
     while($qr->fetch()){
-        $calendars[] = array(
+        $events[] = array(
             'id' => $id,
             'title' => $title,
-            'description' => $description,
-            'priority' => $priority,
-            'creation' => $creation,
-            'expire' => $expire,
+            'start' => $start,
+            'end' => $end,
+            'color' => $color,
             'calendar_id' => $calendar_id
         );
     }
@@ -34,5 +31,6 @@ if(isset($_SESSION['id'])){
     $qr->close();
     $db->close();
 
-    echo json_encode($calendars);
+    echo json_encode($events);
+    header("Content-Type: application/json");
 }

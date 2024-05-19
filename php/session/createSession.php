@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 require_once('../database.php');
 
 
-session_start();
+
 
 function hash_string($int, $time){
     $hashed = hash('sha256', "-$int-$time-");
@@ -34,7 +34,7 @@ function check($id){
     $db = getDb();
 
     $qr = $db->prepare("SELECT id FROM session WHERE user = ?");
-    $qr->bind_param("s", $id);
+    $qr->bind_param("i", $id);
 
     $qr->execute();
 
@@ -50,7 +50,12 @@ function check($id){
     return null;
 }
 
+session_start();
+
+echo "mamma";
+
 if(isset($_SESSION['id'])){
+    echo "mia";
     $s = check($_SESSION['id']);
     if($s){
         setcookie("session",  $s, time() + (99*24*3600), "/");

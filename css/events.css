@@ -111,3 +111,28 @@ body {
 .current-hour-line, .current-hour-text {
     position: absolute;
 }
+
+/* AddEvent */
+.addEvent {
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+    width: 80px;
+    height: 80px;
+    background-color: #92be79;
+    color: white;
+    cursor: pointer;
+    border-radius: 40px;
+    transition: ease 0.3s;
+    font-weight: bold;
+    font-size: 17px;
+    box-shadow: 0 2px 4px gray;
+    z-index: 2;
+}
+
+.addEvent:hover {
+    color: #92be79;
+    background-color: white;
+    border: 1px solid #92be79;
+    scale: 110%;
+}

@@ -10,11 +10,11 @@
 
 </head>
 
-<body>
+<body onload="init();">
 <div class="container">
   <div class="header">
     <h1 style="font-size: 60px">Planner</h1>
-    <input type="date" id="datepicker">
+    <input type="date" id="datepicker" name="">
     <button id="addActivity"><img src="img/add.svg" alt="Add activity"></button>
 
     <!-- Migliorare switch per dark mode -->
@@ -27,7 +27,7 @@
     <div class="hours">
       <div class="current-hour-text"></div>
     </div>
-    <div class="activities">
+    <div id="attList" class="activities">
       <!-- Attività saranno generate qui -->
     </div>
     <div class="current-hour-line"></div>
@@ -38,19 +38,24 @@
 
 <div id="activityModal" class="modal">
   <div class="modal-content">
-    <form id="activityForm">
+    <form id="activityForm"   method="post" action="/php/event/insertEvent.php">
       <label for="activityName">Nome Attività:</label>
       <input type="text" id="activityName" name="title" required>
+      
       <label for="activityStartTime">Ora di Inizio:</label>
-      <input type="time" id="activityStartTime" name="start" required>
+      <input type="datetime-local" id="activityStartTime" name="start" required>
+      
       <label for="activityEndTime">Ora di Fine:</label>
-      <input type="time" id="activityEndTime" name="end">
+      <input type="datetime-local" id="activityEndTime" name="end">
+      
       <label for="activityColor">Scegli il colore dell'attività:</label>
       <input type="color" id="activityColor" name="color">
+      
       <div class="button-container">
         <input type="submit" value="Aggiungi">
         <button type="button" id="cancelBtn">Annulla</button>
       </div>
+
     </form>
   </div>
 </div>
